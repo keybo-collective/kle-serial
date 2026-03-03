@@ -72,7 +72,7 @@ class Keyboard {
 }
 ```
 
-A `Keyboard` is an object containg keyboard metadata (`meta`) and an array of
+A `Keyboard` is an object containing keyboard metadata (`meta`) and an array of
 `keys`.
 
 ### Keyboard Metadata

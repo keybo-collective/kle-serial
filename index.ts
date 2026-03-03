@@ -210,7 +210,22 @@ export module Serial {
     return kbd;
   }
 
-  export function parse(json: string): Keyboard {
-    return deserialize(JSON5.parse(json));
+  export function parse(json_5: string): Keyboard {
+    let rows: Array<any>;
+
+    try {
+      rows = JSON5.parse(json_5);
+    } catch {
+      // Multi-row/with-metadata raw format — multiple top-level values
+      rows = JSON5.parse(`[${json_5}]`);
+    }
+
+    // If any top-level element is a string, this is a single raw row
+    // (strings can only appear inside rows, not as outer array elements)
+    if (rows.some((el: any) => typeof el === "string")) {
+      rows = [rows];
+    }
+
+    return deserialize(rows);
   }
 }
