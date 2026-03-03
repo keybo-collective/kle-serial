@@ -6,8 +6,6 @@
     "outDir": "./dist",
     "strict": true,
     "noImplicitAny": false,
-    "plugins": [
-      { "transform": "ts-transformer-keys/transformer" }
-    ]
+    "skipLibCheck": true
   }
 }
