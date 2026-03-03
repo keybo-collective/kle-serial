@@ -24,10 +24,14 @@ export class Key {
   ghost: boolean = false;
   stepped: boolean = false;
   nub: false = false;
-  profile: string = "";
-  sm: string = ""; // switch mount
-  sb: string = ""; // switch brand
-  st: string = ""; // switch type
+
+  enc: boolean = false;
+  stab: boolean = false;
+
+  _rs: number = 0;
+  _rc: number = 0;
+  _ss: boolean = false;
+  _so: boolean = false;
 }
 
 export class KeyboardMetadata {
@@ -37,9 +41,6 @@ export class KeyboardMetadata {
   name: string = "";
   notes: string = "";
   radii: string = "";
-  switchBrand: string = "";
-  switchMount: string = "";
-  switchType: string = "";
 }
 
 export class Keyboard {
@@ -137,8 +138,8 @@ export module Serial {
             // Set up for the next key
             current.x += current.width;
             current.width = current.height = 1;
-            current.x2 = current.y2 = current.width2 = current.height2 = 0;
-            current.nub = current.stepped = current.decal = false;
+            current.x2 = current.y2 = current.width2 = current.height2 = current._rs = current._rc = 0;
+            current.nub = current.stepped = current.decal = current.enc = current.stab = current._ss = current._so = false;
           } else {
             if (
               k != 0 &&
@@ -160,7 +161,6 @@ export module Serial {
             if (item.f2)
               for (var i = 1; i < 12; ++i) current.textSize[i] = item.f2;
             if (item.fa) current.textSize = item.fa;
-            if (item.p) current.profile = item.p;
             if (item.c) current.color = item.c;
             if (item.t) {
               var split = item.t.split("\n");
@@ -179,9 +179,14 @@ export module Serial {
             if (item.l) current.stepped = item.l;
             if (item.d) current.decal = item.d;
             if (item.g != null) current.ghost = item.g;
-            if (item.sm) current.sm = item.sm;
-            if (item.sb) current.sb = item.sb;
-            if (item.st) current.st = item.st;
+
+            if (item.enc) current.enc = item.e;
+            current.stab = ((item.w >= 2) || (item.h >= 2));
+
+            if (item._rs) current._rs = item._rs;
+            if (item._rc) current._rc = item._rc;
+            if (item._ss) current._ss = item._ss;
+            if (item._so) current._so = item._so;
           }
         }
 

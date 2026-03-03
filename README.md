@@ -87,9 +87,6 @@ class KeyboardMetadata {
   name: string;
   notes: string;
   radii: string;
-  switchBrand: string;
-  switchMount: string;
-  switchType: string;
 }
 ```
 
@@ -111,11 +108,6 @@ class KeyboardMetadata {
 - `radii` — the radii of the keyboard corners, in
   [CSS `border-radius` format](https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius),
   e.g., `20px`.
-- `switchBrand`, `switchMount`, `switchType` — the _default_ switch `mount`,
-  `brand`, and `type` of switches on your keyboard.
-  - Default can be overridden on individual keys.
-  - See known values here:
-    https://github.com/ijprest/keyboard-layout-editor/blob/master/switches.json
 
 ### Keys
 
@@ -148,11 +140,13 @@ export class Key {
   stepped: boolean;
   nub: boolean;
 
-  profile: string;
+  enc: boolean;
+  stab: boolean;
 
-  sm: string; // switch mount
-  sb: string; // switch brand
-  st: string; // switch type
+  _rs: number;
+  _rc: number;
+  _ss: boolean;
+  _so: boolean;
 }
 ```
 
@@ -202,13 +196,13 @@ export class Key {
   [stepped](https://deskthority.net/wiki/Keycap#Stepped_keycaps).
 - `nub` — specifies that the key has a homing nub / bump / dish; the exact
   rendering will depend on the key's `profile`.
-- `profile` — specifies the key's "profile" (and row, for those profiles that
-  vary depending on the row), e.g., "`DCS R1`" or "`DSA`".
-  - Currently supported / known profiles: `SA`, `DSA`, `DCS`, `OEM`, `CHICKLET`,
-    `FLAT`
-  - Currently supported / known rows: `R1`, `R2`, `R3`, `R4`, `R5`, `SPACE`
-- `sm` / `sb` / `st` — the switch _mount_, _brand_, and _type_, overriding the
-  default values specified in the keyboard metadata.
+- `enc` — specifies that the key is rotary encoder (a.k.a., "knob")
+- `stab` - specifies that a stabalizer is required. Automatically sets this to true if `width` or `height` >= 2.
+- There is also support for the [ai03 Plate Generator](https://kbplate.ai03.com/):
+    - `_rs` - specifies the rotation the stabilizers by degrees specified independently of the key.
+    - `_rc` - specifies the rotation the switch cutout by degrees specified independently of the rotation cluster it is in.
+  - `_ss` - specified that the stabilizer is shifted to enable off-center 6U stabilizers.
+  - `_so` - specifies if the automatic orientation should be disabled. By default, plategen will automatically rotate switch cutouts and add stabilizers when keys are taller than wide.
 
 
 ## Tests

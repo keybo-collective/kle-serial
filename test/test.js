@@ -148,40 +148,6 @@ describe("deserialization", function() {
       expect(result.keys[1].ghost).to.be.true;
       expect(result.keys[2].ghost).to.be.true;
     });
-
-    it("should propagate the profile flag", function() {
-      var result = kbd.Serial.deserialize([["0", { p: "DSA" }, "1", "2"]]);
-      expect(result).to.be.an.instanceOf(kbd.Keyboard);
-      expect(result.keys).to.have.length(3);
-      expect(result.keys[0].profile).to.be.empty;
-      expect(result.keys[1].profile).to.equal("DSA");
-      expect(result.keys[2].profile).to.equal("DSA");
-    });
-
-    it("should propagate switch properties", function() {
-      var result = kbd.Serial.deserialize([["1", { sm: "cherry" }, "2", "3"]]);
-      expect(result, "sm").to.be.an.instanceOf(kbd.Keyboard);
-      expect(result.keys, "sm").to.have.length(3);
-      expect(result.keys[0].sm, "sm_0").to.equal("");
-      expect(result.keys[1].sm, "sm_1").to.equal("cherry");
-      expect(result.keys[2].sm, "sm_2").to.equal("cherry");
-
-      var result = kbd.Serial.deserialize([["1", { sb: "cherry" }, "2", "3"]]);
-      expect(result, "sb").to.be.an.instanceOf(kbd.Keyboard);
-      expect(result.keys, "sb").to.have.length(3);
-      expect(result.keys[0].sb, "sb_0").to.equal("");
-      expect(result.keys[1].sb, "sb_1").to.equal("cherry");
-      expect(result.keys[2].sb, "sb_2").to.equal("cherry");
-
-      var result = kbd.Serial.deserialize([
-        ["1", { st: "MX1A-11Nx" }, "2", "3"]
-      ]);
-      expect(result, "st").to.be.an.instanceOf(kbd.Keyboard);
-      expect(result.keys, "st").to.have.length(3);
-      expect(result.keys[0].st, "st_0").to.equal("");
-      expect(result.keys[1].st, "st_1").to.equal("MX1A-11Nx");
-      expect(result.keys[2].st, "st_2").to.equal("MX1A-11Nx");
-    });
   });
 
   describe("of text color", function() {
