@@ -1,11 +1,5 @@
 # kle-serial
 
-[![Build Status](https://travis-ci.org/ijprest/kle-serial.svg?branch=master)](https://travis-ci.org/ijprest/kle-serial)
-[![Coverage Status](https://coveralls.io/repos/github/ijprest/kle-serial/badge.svg?branch=master)](https://coveralls.io/github/ijprest/kle-serial?branch=master)
-[![npm version](https://badge.fury.io/js/%40ijprest%2Fkle-serial.svg)](https://badge.fury.io/js/%40ijprest%2Fkle-serial)
-[![Dependency Status](https://david-dm.org/ijprest/kle-serial.svg)](https://david-dm.org/ijprest/kle-serial)
-[![GitHub](https://img.shields.io/github/license/ijprest/kle-serial.svg)](LICENSE)
-
 This is a [MIT-licensed](LICENSE) javascript library for parsing the serialized
 format used on keyboard-layout-editor.com (KLE) and converting it into something
 that is easier to understand and use in third-party applications.
@@ -28,7 +22,7 @@ so by using it, you can be sure that you are 100% compatible with the editor.
 Install the package via NPM:
 
 ```bash
-npm install @ijprest/kle-serial --save
+npm install @ijprest/kle-serial@https://github.com/keybo-collective/kle-serial.git --save
 ```
 
 ## Usage
@@ -216,27 +210,6 @@ export class Key {
 - `sm` / `sb` / `st` — the switch _mount_, _brand_, and _type_, overriding the
   default values specified in the keyboard metadata.
 
-## Future Work
-
-In rough order of priority:
-
-1. This library is _based_ on the original KLE code, but it has been converted
-   to a TypeScript and modularized to make it convenient for others to consume;
-   the KLE site itself is not yet using this actual code.
-   - So the first order of business is to update KLE to use this exact NPM
-     module.
-   - That will ensure that the code is correct, and that nothing has been
-     missed, as well as guarantee that the two projects are kept in sync.
-2. This library currently only handles _deserialization_; the serialization code
-   still needs to be ported.
-3. More tests (particularly on the serialization side, once it's ported; it's
-   much more error-prone than deserialization).
-4. Migrate some of the supporting data from KLE to this project, so you don't
-   have to look it up elsewhere, e.g.:
-   - Switch mount / brand / type definitions.
-   - Color palettes.
-5. Migrate HTML key rendering templates (and supporting stylesheets) from KLE to
-   this project, so anyone can render a key identically to KLE.
 
 ## Tests
 
